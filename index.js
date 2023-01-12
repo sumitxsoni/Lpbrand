@@ -23,13 +23,15 @@ app.post("/user/generateToken", (req, res) => {
     // Validate User Here
     // Then generate JWT Token
     console.log("generate token")
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    // let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    let jwtPrivateKey = process.env.JWT_PRIVATE_KEY;
     let data = {
         time: Date(),
         userId: 12,
+        userName: "Sumit"
     }
   
-    const token = jwt.sign(data, jwtSecretKey);
+    const token = jwt.sign(data, jwtPrivateKey);
   
     res.json(token);
 });
@@ -40,12 +42,14 @@ app.get("/user/validateToken", (req, res) => {
     // Due to security reasons.
   
     let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    // let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+    let jwtPublicKey = process.env.JWT_PUBLIC_KEY;
     // console.log(tokenHeaderKey,jwtSecretKey)
   
     try {
         const token = req.header(tokenHeaderKey);
-        const verified = jwt.verify(token, jwtSecretKey);
+        const verified = jwt.verify(token, jwtPublicKey);
         console.log(verified)
         if(verified){
             return res.json({message : "Successfully Verified", data : verified});
