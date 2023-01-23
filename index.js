@@ -19,6 +19,7 @@ app.get('/page2',express.json(),(req,res)=>{
 });
 
 
+
 app.post("/user/generateToken", (req, res) => {
     // Validate User Here
     // Then generate JWT Token
